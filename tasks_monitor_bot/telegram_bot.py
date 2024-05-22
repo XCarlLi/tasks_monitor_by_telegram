@@ -3,6 +3,7 @@ import asyncio
 import os
 import sys
 import time
+import argparse
 from telegram import Bot
 from telegram.constants import ParseMode
 
@@ -26,14 +27,14 @@ async def send_telegram_message(message):
     """
     await bot.send_message(chat_id=chat_id, text=message, parse_mode=ParseMode.MARKDOWN)
 
-async def main(script_type, command, task_name):
+async def main(script_type, task_name, command):
     """
     Executes a command as a subprocess and sends Telegram messages about its status.
 
     Args:
         script_type (str): The type of script to run ('shell' or 'python').
-        command (str): The command to execute.
         task_name (str): The name of the task for messaging purposes.
+        command (list): The command to execute as a list of arguments.
     """
     # Record start time
     start_time = time.time()
@@ -42,7 +43,7 @@ async def main(script_type, command, task_name):
     if script_type == 'shell':
         process = subprocess.Popen(command, shell=True)
     else:
-        process = subprocess.Popen([script_type, command])
+        process = subprocess.Popen(['python'] + command)
 
     pid = process.pid
     await send_telegram_message(f"🚀 Started *{task_name}* task with PID `{pid}`")
@@ -66,21 +67,31 @@ def cli():
     Parses command line arguments and runs the main function.
 
     Usage:
-        python telegram_bot.py <script_type> <task_name> <command>
+        telegram_bot -p <task_name> <python_script> [<args>...]
+        telegram_bot -s <task_name> <shell_command> [<args>...]
 
-    The <script_type> argument should be 'shell' or 'python'.
+    The -p argument is for running a Python script.
+    The -s argument is for running a shell command.
     The <task_name> argument is a descriptive name for the task.
-    The <command> argument is the command to execute.
+    The <command> argument is the command to execute, followed by any arguments.
     """
-    if len(sys.argv) != 4:
-        print("Usage: python telegram_bot.py <script_type> <task_name> <command>")
-        sys.exit(1)
-    
-    script_type = sys.argv[1]  # 'shell' or 'python'
-    task_name = sys.argv[2]
-    command = sys.argv[3]
+    parser = argparse.ArgumentParser(description="Run tasks and send status messages to Telegram.")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-p', '--python', nargs='+', metavar=('task_name', 'python_script'), help='Run a Python script')
+    group.add_argument('-s', '--shell', nargs='+', metavar=('task_name', 'shell_command'), help='Run a shell command')
 
-    asyncio.run(main(script_type, command, task_name))
+    args = parser.parse_args()
+
+    if args.python:
+        script_type = 'python'
+        task_name = args.python[0]
+        command = args.python[1:]
+    elif args.shell:
+        script_type = 'shell'
+        task_name = args.shell[0]
+        command = ' '.join(args.shell[1:])
+
+    asyncio.run(main(script_type, task_name, command))
 
 if __name__ == "__main__":
     cli()
