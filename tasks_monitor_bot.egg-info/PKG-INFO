@@ -1,5 +1,5 @@
 Metadata-Version: 2.1
-Name: tasks-monitor-bot
+Name: tasks_monitor_bot
 Version: 0.1.0
 Summary: A simple tasks monitor bot using Telegram
 Author-email: Carl Li <jiaying.liac@gmail.com>
