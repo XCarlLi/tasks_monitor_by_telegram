@@ -55,9 +55,12 @@ async def main(script_type, task_name, command):
     end_time = time.time()
     elapsed_time = end_time - start_time
 
+    # Convert elapsed time to hh:mm:ss format
+    elapsed_time_str = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
+
     # Check subprocess exit status
     if process.returncode == 0:
-        await send_telegram_message(f"✅ *{task_name}* completed in {elapsed_time:.2f} seconds.")
+        await send_telegram_message(f"✅ *{task_name}* completed in {elapsed_time_str}.")
     else:
         await send_telegram_message(f"⚠️ *{task_name}* was interrupted. Exit code: {process.returncode}")
 
@@ -95,4 +98,3 @@ def cli():
 
 if __name__ == "__main__":
     cli()
-
