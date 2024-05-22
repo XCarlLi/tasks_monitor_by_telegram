@@ -1,0 +1,2 @@
+[console_scripts]
+task-monitor = tasks_monitor_bot.telegram_bot:cli

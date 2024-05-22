@@ -1,0 +1,11 @@
+LICENSE
+README.md
+pyproject.toml
+tasks_monitor_bot/__init__.py
+tasks_monitor_bot/telegram_bot.py
+tasks_monitor_bot.egg-info/PKG-INFO
+tasks_monitor_bot.egg-info/SOURCES.txt
+tasks_monitor_bot.egg-info/dependency_links.txt
+tasks_monitor_bot.egg-info/entry_points.txt
+tasks_monitor_bot.egg-info/requires.txt
+tasks_monitor_bot.egg-info/top_level.txt

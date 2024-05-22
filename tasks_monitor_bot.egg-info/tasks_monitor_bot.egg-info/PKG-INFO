@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: tasks-monitor-bot
+Version: 0.1.0
+Summary: A simple tasks monitor bot using Telegram
+Author-email: Carl Li <jiaying.liac@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2024 Carl Li 
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+Keywords: telegram-bot,task-monitor,bot,tasks
+Classifier: Programming Language :: Python
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: python-telegram-bot>=21.2
+
+# telegram_bot_package
+
+A package to run tasks and send status messages to Telegram.
+
+## Installation
+
+```bash
+pip install telegram_bot_package
+
