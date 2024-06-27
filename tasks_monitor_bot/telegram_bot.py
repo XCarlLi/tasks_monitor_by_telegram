@@ -70,8 +70,8 @@ def cli():
     Parses command line arguments and runs the main function.
 
     Usage:
-        telegram_bot -p <task_name> <python_script> [<args>...]
-        telegram_bot -s <task_name> <shell_command> [<args>...]
+        task-monitor -p <task_name> <python_script> [<args>...]
+        task-monitor -s <task_name> <shell_command> [<args>...]
 
     The -p argument is for running a Python script.
     The -s argument is for running a shell command.
